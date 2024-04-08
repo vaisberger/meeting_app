@@ -1,13 +1,61 @@
+html{
+    width: fit-content;
+}
 .page{
     display: none;
     width: 100%;
-    min-height: 100%;
-    position: fixed;
+    position:absolute;
     padding: 1rem 2rem;
 }
 .active{
-    display: block;
+    display:block;
 }
+
+/*homepage */
+.navbar{
+    width: 90%; 
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .navbar a {
+      color:#037481;
+      text-align: center;
+      padding: 30px 50px;
+      text-decoration: none;
+      display: block;
+      font-family: Calibri ;
+      font-size: 25px;
+      font-weight: bolder;
+      width: 100%;
+      height: 200px;
+      align-items: center;
+    }
+    #logo{
+      width: 200px;
+      padding-bottom: 100px;
+    }
+ table{
+    background-color: lightblue;
+    width: 80%;
+    height: 800px;
+    position:static;
+    margin-left: auto;
+    margin-right: auto;
+    }
+    tr{
+        text-align: center;
+        border: black;
+    }
+    th{
+        background-color: darkcyan;
+        color: white;
+    }
+
+
+/* login page*/
 .container {
     background-color: #fff;
     border-radius: 8px;
@@ -16,4 +64,83 @@
     width: 300px;
     max-width: 90%;
     margin: 50px auto;
+}
+.toggle-password::after {
+    content: '👁️';
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Style for the password input wrapper */
+.password-wrapper {
+    position: relative;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    color: #555;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 14px;
+    color: #888;
+}
+
+/* Button styles */
+button {
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Link styles */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* Define a class for the eye icon */
+.toggle-password {
+    cursor: pointer;
+    position: relative;
 }
