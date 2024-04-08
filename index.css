@@ -1,0 +1,19 @@
+.page{
+    display: none;
+    width: 100%;
+    min-height: 100%;
+    position: fixed;
+    padding: 1rem 2rem;
+}
+.active{
+    display: block;
+}
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    max-width: 90%;
+    margin: 50px auto;
+}
