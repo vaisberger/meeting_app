@@ -33,6 +33,7 @@ const app = {
 }
 
 document.addEventListener('DOMContentLoaded', app.init);
+<<<<<<< HEAD
 const select = document.getElementById('select');
 select.addEventListener('change', selectChange());
 
@@ -53,4 +54,7 @@ function selectChange(){
     }
 
 }
+=======
+const select=document.getElementById("select").addEventListener('change',()=>{alert("hi")});
+>>>>>>> 559f899155dfb5e887f22d587e06a08aa6ac5902
 
