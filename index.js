@@ -32,7 +32,5 @@ const app = {
     }
 }
 document.addEventListener('DOMContentLoaded', app.init);
-document.getElementById("select").addEventListener('onchange',num);
-function num(){
-    alert('hi');
-}
+const select=document.getElementById("select").addEventListener('change',()=>{alert("hi")});
+
