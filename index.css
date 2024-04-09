@@ -1,5 +1,7 @@
 html{
-    width: fit-content;
+    background: url(/imgs/background.jpeg) no-repeat center center fixed; 
+    background-size: cover;
+    overflow-x: hidden;
 }
 .page{
     display: none;
@@ -10,7 +12,6 @@ html{
 .active{
     display:block;
 }
-
 /*homepage */
 .navbar{
     width: 90%; 
@@ -44,42 +45,67 @@ html{
     position:static;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid;
+    table-layout: fixed;
     }
     tr{
-        text-align: center;
-        border: black;
+        text-align:center;
+        vertical-align: top;
+        color:darkslategrey;
     }
+    
     th{
         background-color: darkcyan;
         color: white;
+        font-size: larger;
     }
-
+    table, th, td {
+        border: 1px solid white;
+        border-collapse: collapse;
+        font-family: Calibri ;
+        font-weight: bolder;
+      }
+      .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
+    .grid-item {
+        padding: 20px;
+        font-size: 30px;
+        text-align: center;
+      }
+    #select{
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
 
 /* login page*/
 .container {
-    background-color: #fff;
+    background-color:lightblue;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     padding: 20px;
     width: 300px;
     max-width: 90%;
     margin: 50px auto;
 }
-.toggle-password::after {
-    content: '👁️';
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
+
+/* Heading styles */
+h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    text-align: center;
+    font-family: Calibri ;
 }
 
-/* Style for the password input wrapper */
-.password-wrapper {
-    position: relative;
-}
+/* Form styles */
 form {
     display: flex;
     flex-direction: column;
+    font-family: Calibri ;
 }
 
 .input-group {
@@ -116,7 +142,7 @@ input[type="password"] {
 /* Button styles */
 button {
     padding: 12px;
-    background-color: #007bff;
+    background-color: #5185be;
     color: #fff;
     border: none;
     border-radius: 3px;
@@ -125,9 +151,6 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
 
 /* Link styles */
 a {
@@ -144,3 +167,20 @@ a:hover {
     cursor: pointer;
     position: relative;
 }
+
+/* Define the style for the eye icon */
+.toggle-password::after {
+    content: '👁️';
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Style for the password input wrapper */
+.password-wrapper {
+    position: relative;
+}
+
+
+
