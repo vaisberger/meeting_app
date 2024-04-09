@@ -31,8 +31,26 @@ const app = {
         document.getElementById(hash).dispatchEvent(app.show);
     }
 }
+
 document.addEventListener('DOMContentLoaded', app.init);
-document.getElementById("select").addEventListener('onchange',num);
-function num(){
-    alert('hi');
+const select = document.getElementById('select');
+select.addEventListener('change', selectChange());
+
+function selectChange(){
+    const month = select.value;
+    const body = {
+        filter: {
+            month: month
+        }
+    };
+
+    let fxhr = new FXHR();
+    fxhr.open('GET', '/meetings/filtered');
+    const res = fxhr.send(body);
+
+    if (res.status == 200){
+
+    }
+
 }
+
