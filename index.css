@@ -1,89 +1,114 @@
-html{
-    background: url(/imgs/background.jpeg) no-repeat center center fixed; 
+html {
+    background: url(/imgs/background.jpeg) no-repeat center center fixed;
     background-size: cover;
     overflow-x: hidden;
 }
-.page{
+
+.page {
     display: none;
     width: 100%;
-    position:absolute;
+    position: absolute;
     padding: 1rem 2rem;
 }
-.active{
-    display:block;
+
+.active {
+    display: block;
 }
+
 /*homepage */
-.navbar{
-    width: 90%; 
+.navbar {
+    width: 90%;
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  
-  .navbar a {
-      color:#037481;
-      text-align: center;
-      padding: 30px 50px;
-      text-decoration: none;
-      display: block;
-      font-family: Calibri ;
-      font-size: 25px;
-      font-weight: bolder;
-      width: 100%;
-      height: 200px;
-      align-items: center;
-    }
-    #logo{
-      width: 200px;
-      padding-bottom: 100px;
-    }
- table{
+}
+
+.navbar a {
+    color: #037481;
+    text-align: center;
+    padding: 30px 50px;
+    text-decoration: none;
+    display: block;
+    font-family: Calibri;
+    font-size: 25px;
+    font-weight: bolder;
+    width: 100%;
+    height: 200px;
+    align-items: center;
+}
+
+#logo {
+    width: 200px;
+    padding-bottom: 100px;
+}
+.newmeeting{
     background-color: lightblue;
-    width: 80%;
-    height: 800px;
-    position:static;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid;
-    table-layout: fixed;
-    }
-    tr{
-        text-align:center;
-        vertical-align: top;
-        color:darkslategrey;
-    }
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 300px;
+    max-width: 90%;
+    margin: 50px auto;
+    position:relative;
+    z-index:10;
+    font-size: 20px;
+    visibility: hidden;
     
-    th{
-        background-color: darkcyan;
-        color: white;
-        font-size: larger;
-    }
-    table, th, td {
-        border: 1px solid white;
-        border-collapse: collapse;
-        font-family: Calibri ;
-        font-weight: bolder;
-      }
-      .grid-container {
-        display: grid;
-        grid-template-columns: auto auto auto auto;
-        height: 100px;;
-    }
-    .grid-item {
-        padding: 20px;
-        font-size: 30px;
-        text-align: center;
-      }
-    #select{
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-    }
+}
+.newmeeting.show{
+    visibility: visible;
+}
+.exit{
+    cursor: pointer;
+}
+.exit::after{
+    content:'❌';
+    margin-left: 270px;
+}
+
+.days {
+    background-color: lightblue;
+    width: 100%;
+    border: 1px solid white;
+    text-align: center;
+    vertical-align: top;
+    color: darkslategrey;
+    height: 400px;
+}
+
+.day {
+    background-color: darkcyan;
+    font-size: larger; 
+}
+h1{
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    font-family: Calibri;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    height: 100px;
+}
+
+.grid-item {
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(7, 140px);
+}
 
 /* login page*/
 .container {
-    background-color:lightblue;
+    background-color: lightblue;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -96,17 +121,17 @@ html{
 h2 {
     margin-top: 0;
     margin-bottom: 20px;
-    color: #333;
+    color: darkcyan;
     font-size: 24px;
     text-align: center;
-    font-family: Calibri ;
+    font-family: Calibri;
 }
 
 /* Form styles */
-form {
+#loginForm,#registerForm{
     display: flex;
     flex-direction: column;
-    font-family: Calibri ;
+    font-family: Calibri;
 }
 
 .input-group {
@@ -114,7 +139,7 @@ form {
 }
 
 label {
-    color: #555;
+    color: darkcyan;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -163,6 +188,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
 /* Define a class for the eye icon */
 .toggle-password {
     cursor: pointer;
@@ -182,6 +208,3 @@ a:hover {
 .password-wrapper {
     position: relative;
 }
-
-
-

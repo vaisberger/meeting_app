@@ -1,4 +1,4 @@
-const dates = document.querySelectorAll('td');
+const dates = document.querySelectorAll('.days');
 const app = {
     pages: [],
     show: new Event('show'),
@@ -32,6 +32,14 @@ const app = {
     }
 }
 
+function addMeeting() {
+    var formwindow= document.getElementsByClassName(newmeeting);
+    formwindow.classList.add('show');
+}
+function exit() {
+    var formwindow= document.getElementById(newmeeting);
+    formwindow.classList.add('show');
+}
 document.addEventListener('DOMContentLoaded', app.init);
 const select = document.getElementById('select');
 select.addEventListener('change', selectChange());
