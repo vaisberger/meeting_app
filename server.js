@@ -1,17 +1,8 @@
 class FServer {
     #db = DB.GetInstance();
+    #loggedUser = null;
 
-    HandleRequestAsync(data, dispatcher){
-        setTimeout(
-            () => {
-                const res = this.#handleRequest(data.method, data.path, data.body);
-                dispatcher(res);
-            },
-            2
-        );
-    }
-
-    HandleRequestSync(data){
+    HandleRequest(data) {
         return this.#handleRequest(data.method, data.path, data.body);
     }
 
@@ -20,7 +11,7 @@ class FServer {
             case 'GET':
                 return this.#handleGetRequest(path, body);
             case 'POST':
-                return this.#handlePostRequest(path, body);
+                return this.#handlePostRequest(path, body.object);
             case 'PUT':
                 return this.#handlePutRequest(path, body);
             case 'DELETE':
@@ -35,6 +26,7 @@ class FServer {
         const query = new URLSearchParams(queryParams);
 
         switch (basePath) {
+            // '/user?name=<username>'
             case '/user':
                 const name = query.get('name');
                 return { status: 200, body: this.#db.GetUser(name) };
@@ -55,15 +47,23 @@ class FServer {
         }
     }
 
-    #handlePostRequest(path, data) {
+    #handlePostRequest(path, object) {
         switch (path) {
-            case '/user':
-                if (!this.#db.GetUser(data.name))
-                    return { status: 201, body: this.#db.AddUser(data) };
+            case '/login':
+                return this.#login(object);
+            case '/register':
+                return this.#register(object);
+            case '/logout':
+                this.#loggedUser = null;
+                return { status: 204 };
+            case '/get_user':
+                //treat
+                if (!this.#db.GetUser(this.#loggedUser))
+                    return { status: 201, body: this.#db.AddUser(object) };
                 return { status: 409, body: 'User Already Exists' };
-            case '/meeting':
-                if (!this.#db.GetMeeting(data.date, data.time))
-                    return { status: 201, body: this.#db.AddMeeting(data) };
+            case '/get_meeting':
+                if (!this.#db.GetMeeting(object.date, object.time))
+                    return { status: 201, body: this.#db.AddMeeting(object) };
 
                 return { status: 409, body: 'Meeting i the same time Already Exists' };
             default:
@@ -107,6 +107,29 @@ class FServer {
         if (res)
             return { status: 204 };
         return { status: 404, body: `${data} Not Found` };
+    }
+
+    /*----------------help functions-----------------*/
+    #login(obj) {
+        let user = this.#db.GetUser(obj.name);
+        if (user && user.password === obj.password) {
+            this.#loggedUser = user;
+            return { status: 200, body: user };
+        }
+        else
+            return { status: 401, body: 'Unauthorized' };
+
+    }
+
+    #register(obj) {
+        let exist = this.#db.GetUserByFilter(u => u.name === obj.name);
+        if (exist === -1) {
+            this.#db.AddUser(obj);
+            this.#loggedUser = obj.name;
+            return { status: 201, body: obj };
+        }
+        else
+            return { status: 409, body: 'User Name Already Exists' };
     }
 }
 

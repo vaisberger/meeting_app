@@ -56,13 +56,7 @@ class DB {
 
     GetUserByFilter(filter) {
         const users = JSON.parse(localStorage.getItem('users'));
-
-        const filteredUsers = users.filter(u => {
-            return Object.keys(filter).every(key => {
-                return u[key] === filter[key];
-            });
-        });
-
+        const filteredUsers = users.filter(u => filter(u));
         return filteredUsers;
     }
 
@@ -107,13 +101,7 @@ class DB {
 
     GetMeetingsByFilter(filter) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
-
-        const filteredMeetings = meetings.filter(m => {
-            return Object.keys(filter).every(key => {
-                return m[key] === filter[key];
-            });
-        });
-
+        const filteredMeetings = meetings.filter(m => filter(m));
         return filteredMeetings;
     }
 

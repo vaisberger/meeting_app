@@ -12,13 +12,8 @@ class Network{
         return Network.instance;
     }
 
-    send_async(data, dispatcher){    
-        this['#svr'].HandleRequestAsync(data, dispatcher);
-    }
-
-    send_sync(data){
-        let result =  this['#svr'].HandleRequestSync(data);
-        return result;
+    send(data){
+        return this['#svr'].HandleRequest(data);
     }
 }
 

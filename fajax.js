@@ -1,25 +1,29 @@
-class FXHR{
+class FXHR {
     msg = {};
     #async = false;
-    
-    constructor(){
+
+    constructor() {
         this['#net'] = Network.GetInstance();
     }
 
-    open(method, url, async = false){
+    open(method, url, async = false) {
         this.msg.method = method;
         this.msg.path = url;
         this.#async = async;
     }
 
-    send(data, dispatcher = null){
+    send(data, dispatcher = null) {
         this.msg.body = data;
         if (!this.#async)
-        {
-            let result = this['#net'].send_sync(this.msg);
-            return result;
-        }
+            return this['#net'].send(this.msg);
         else
-            this['#net'].send_async(this.msg, dispatcher);
+            setTimeout(
+                () => {
+
+                    const res = this['#net'].send_async(this.msg);;
+                    dispatcher(res);
+                },
+                2
+            );
     }
 }
