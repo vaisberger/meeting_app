@@ -17,17 +17,27 @@ class DB {
 
     AddUser(user) {
         const users = JSON.parse(localStorage.getItem('users'));
+        const meetings = JSON.parse(localStorage.getItem('meetings'));
+
         users.push(user);
+        meetings[user.name] = [];
+
         localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('meetings', JSON.stringify(meetings));
     };
 
     DelUser(name)  {
         const users = JSON.parse(localStorage.getItem('users'));
-        const index = users.findIndex(u => u.name === name);
+        const u_index = users.findIndex(u => u.name === name);
 
-        if (index !== -1){
-            users.splice(index, 1);
+        if (u_index !== -1){
+            users.splice(u_index, 1);
             localStorage.setItem('users', JSON.stringify(users));
+
+            const meetings = JSON.parse(localStorage.getItem('meetings'));
+            delete meetings[name];
+            localStorage.setItem('meetings', JSON.stringify(meetings));
+
             return true;
         }
         
@@ -51,7 +61,7 @@ class DB {
         const users = JSON.parse(localStorage.getItem('users'));
         const index = users.findIndex(u => u.name === name);
 
-        return users[index] || null;
+        return users? users[index] : null;
     };
 
     GetUserByFilter(filter) {
@@ -59,19 +69,28 @@ class DB {
         const filteredUsers = users.filter(u => filter(u));
         return filteredUsers;
     }
-
-    AddMeeting(meeting) {
+    
+    AddMeeting(name, meeting) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
-        meetings.push(meeting);
-        localStorage.setItem('meetings', JSON.stringify(meetings));
+        const u_meetings = meetings[name];
+
+        if (u_meetings) {
+            u_meetings.push(meeting);
+            localStorage.setItem('meetings', JSON.stringify(meetings));
+
+            return meeting;
+        }
+        
+        return null;
     };
 
-    DelMeeting(date, time) {
+    DelMeeting(name, date, time) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
-        const index = meetings.findIndex(m => m.date === date && m.time === time);
+        const u_meetings = meetings[name];
+        const index = u_meetings.findIndex(m => m.date === date && m.time === time) || -1;
 
         if (index !== -1){
-            meetings.splice(index, 1);
+            u_meetings.splice(index, 1);
             localStorage.setItem('meetings', JSON.stringify(meetings));
             return true;
         }
@@ -79,12 +98,13 @@ class DB {
         return false;
     };
 
-    UpdateMeeting(meeting) {
+    UpdateMeeting(name, meeting) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
-        const index = meetings.findIndex(m => m.date === meeting.date && m.time === meeting.time);
+        const u_meetings = meetings[name];
+        const index = u_meetings.findIndex(m => m.date === meeting.date && m.time === meeting.time) || -1;
 
         if (index !== -1){
-            meetings[index] = meeting;
+            u_meetings[index] = meeting;
             localStorage.setItem('meetings', JSON.stringify(meetings));
             return meeting;
         }
@@ -92,21 +112,24 @@ class DB {
         return null;
     };
 
-    GetMeeting(date, time) {
+    GetMeeting(name, date, time) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
-        const index = meetings.findIndex(m => m.date === date && m.time === time);
+        const u_meetings = meetings[name];
+        const index = u_meetings.findIndex(m => m.date === date && m.time === time);
 
         return meetings[index] || null;
     };
 
-    GetMeetingsByFilter(filter) {
+    GetMeetingsByFilter(name, filter) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
-        const filteredMeetings = meetings.filter(m => filter(m));
+        const u_meetings = meetings[name] || [];
+        const filteredMeetings = u_meetings.filter(m => filter(m));
         return filteredMeetings;
     }
 
-    GetMeetings() {
+    GetMeetings(name) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
+        const u_meetings = meetings[name] || [];
         return meetings;
     };
 }

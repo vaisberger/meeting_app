@@ -11,7 +11,7 @@ class FServer {
             case 'GET':
                 return this.#handleGetRequest(path, body);
             case 'POST':
-                return this.#handlePostRequest(path, body.object);
+                return this.#handlePostRequest(path, body);
             case 'PUT':
                 return this.#handlePutRequest(path, body);
             case 'DELETE':
@@ -24,30 +24,39 @@ class FServer {
     #handleGetRequest(path, body) {
         const [basePath, queryParams] = path.split('?');
         const query = new URLSearchParams(queryParams);
+        let res = null;
 
         switch (basePath) {
-            // '/user?name=<username>'
             case '/user':
-                const name = query.get('name');
-                return { status: 200, body: this.#db.GetUser(name) };
-            case '/user/filtered':
+                res = this.#db.GetUser(this.#loggedUser);
+                break;
+            case '/users/filtered':
                 let filter = body['filter'];
-                return { status: 200, body: this.#db.GetUserByFilter(filter) };
+                res = this.#db.GetUserByFilter(filter);
+                break;
             case '/meetings':
-                return { status: 200, body: this.#db.GetMeetings() };
+                res = this.#db.GetMeetings(this.#loggedUser);
+                break;
             case '/meeting':
                 const date = query.get('date');
                 const time = query.get('time');
-                return { status: 200, body: this.#db.GetMeeting(date, time) };
+                res = this.#db.GetMeeting(this.#loggedUser, date, time);
+                break;
             case '/meetings/filtered':
                 filter = body['filter'];
-                return { status: 200, body: this.#db.GetMeetingsByFilter(filter) };
+                res = this.#db.GetMeetingsByFilter(this.#loggedUser, filter);
+                break;
             default:
-                return { status: 404, body: 'Not Found' };
         }
+
+        if (res)
+            return { status: 200, body: res };
+        return { status: 404, body: 'Not Found' };
     }
 
-    #handlePostRequest(path, object) {
+    #handlePostRequest(path, data) {
+        const object = data.object;
+
         switch (path) {
             case '/login':
                 return this.#login(object);
@@ -56,16 +65,10 @@ class FServer {
             case '/logout':
                 this.#loggedUser = null;
                 return { status: 204 };
-            case '/get_user':
-                //treat
-                if (!this.#db.GetUser(this.#loggedUser))
-                    return { status: 201, body: this.#db.AddUser(object) };
-                return { status: 409, body: 'User Already Exists' };
-            case '/get_meeting':
-                if (!this.#db.GetMeeting(object.date, object.time))
+            case '/meeting':
+                if (!this.#db.GetMeeting(this.#loggedUser, object.date, object.time))
                     return { status: 201, body: this.#db.AddMeeting(object) };
-
-                return { status: 409, body: 'Meeting i the same time Already Exists' };
+                return { status: 409, body: 'Meeting in the same time Already Exists' };
             default:
                 return { status: 404, body: 'Not Found' };
         }
@@ -73,13 +76,15 @@ class FServer {
 
     #handlePutRequest(path, data) {
         let res = null;
+        const object = data.object;
 
         switch (path) {
             case '/user':
-                res = this.#db.UpdateUser(data);
+                if (this.#loggedUser === object.name)
+                    res = this.#db.UpdateUser(object);
                 break;
             case '/meetings':
-                res = this.#db.UpdateMeeting(data);
+                res = this.#db.UpdateMeeting(object);
                 break;
             default:
         }
@@ -96,17 +101,19 @@ class FServer {
 
         switch (basePath) {
             case '/user':
-                res = this.#db.DeleteUser(query.get('name'));
+                res = this.#db.DelUser(this.#loggedUser);
+                if (res)
+                    this.#loggedUser = null;
                 break;
             case '/meeting':
-                res = this.#db.DelMeeting(query.get('date'), query.get('time'));
+                res = this.#db.DelMeeting(this.#loggedUser, query.get('date'), query.get('time'));
                 break;
             default:
         }
 
         if (res)
             return { status: 204 };
-        return { status: 404, body: `${data} Not Found` };
+        return { status: 404, body: `${object} Not Found` };
     }
 
     /*----------------help functions-----------------*/
@@ -133,23 +140,3 @@ class FServer {
     }
 }
 
-// Usage
-const fakeServer = new FakeServer();
-
-// Example usage: Handle a GET request
-const getUsersResponse = fakeServer.handleRequest('GET', '/users');
-console.log(getUsersResponse);
-
-// Example usage: Handle a POST request
-const postData = { id: 3, name: 'Alice' };
-const postUsersResponse = fakeServer.handleRequest('POST', '/users', postData);
-console.log(postUsersResponse);
-
-// Example usage: Handle a PUT request
-const putData = { id: 1, name: 'Updated John' };
-const putUsersResponse = fakeServer.handleRequest('PUT', '/users', putData);
-console.log(putUsersResponse);
-
-// Example usage: Handle a DELETE request
-const deleteUsersResponse = fakeServer.handleRequest('DELETE', '/users');
-console.log(deleteUsersResponse);
