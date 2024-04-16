@@ -23,7 +23,7 @@
                 <div class="grid-item"><button type="button" onclick="register()">delete meeting</button></div>
                 <div class="grid-item"><button type="button" onclick="addMeeting()">Add meeting</button></div>
                 <div class="grid-item">
-                    <form class="newmeeting">
+                    <form id="newmeeting">
                         <span class="exit" onclick="exit()"></span>
                         <div class="input-group">
                             <label for="date">date:</label>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="input-group">
                             <label for="discription">discription:</label>
-                            <input type="text" id="discription">
+                            <input type="text" id="discription" maxlength="15">
                         </div>
                         <div class="grid-item"><button type="button" onclick="add()">Add</button></div>
                     </form>

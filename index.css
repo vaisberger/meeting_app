@@ -42,7 +42,7 @@ html {
     width: 200px;
     padding-bottom: 100px;
 }
-.newmeeting{
+#newmeeting{
     background-color: lightblue;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -54,10 +54,6 @@ html {
     z-index:10;
     font-size: 20px;
     visibility: hidden;
-    
-}
-.newmeeting.show{
-    visibility: visible;
 }
 .exit{
     cursor: pointer;
