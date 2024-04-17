@@ -11,7 +11,7 @@
 
 <body>
     <main>
-        <div class="page active" id="home">
+        <div class="page" id="home">
             <div class="navbar">
                 <img id="logo" src="/imgs\icon.png">
                 <a href="#" data-target="home" class="nav-link">Home</a>
@@ -26,8 +26,16 @@
                     <form id="newmeeting">
                         <span class="exit" onclick="exit()"></span>
                         <div class="input-group">
-                            <label for="date">date:</label>
-                            <input type="text" id="date" required>
+                            <label for="date">Date:</label>
+                            <select id="date" required>
+                                <option value="sun">Sun</option>
+                                <option value="mon">Mon</option>
+                                <option value="tue">Tue</option>
+                                <option value="wed">Wed</option>
+                                <option value="thu">Thu</option>
+                                <option value="fri">Fri</option>
+                                <option value="sat">Sat</option>
+                            </select>
                         </div>
                         <div class="input-group">
                             <label for="time">time:</label>
@@ -91,7 +99,7 @@
             </div>
         </div>
 
-        <div class="page" id="login">
+        <div class="page active" id="login">
             <div class="container">
                 <h2>Login</h2>
                 <form id="loginForm">
@@ -106,7 +114,7 @@
                         <span class="toggle-password" onclick="togglePasswordVisibility('password')"></span>
                     </div>
 
-                    <button id="btn" type="button" href="#" data-target="home" class="nav-link">Login</button>
+                    <button id="btn" type="button" href="#" data-target="home" class="nav-link" onclick="login()">Login</button>
                 </form>
                 <p>If you are not registered, <a href="#" data-target="registration" class="nav-link">click here</a> to
                     register.</p>
@@ -133,7 +141,7 @@
                         <input type="email" id="email" required>
                     </div>
 
-                    <button type="button" onclick="register()">Register</button>
+                    <button type="button">Register</button>
                 </form>
 
             </div>

@@ -17,11 +17,12 @@ const app = {
     nav: function (ev) {
         ev.preventDefault();
         let currentPage = ev.target.getAttribute('data-target');
-        document.querySelector('.active').classList.remove('active');
-        document.getElementById(currentPage).classList.add('active');
-        console.log(currentPage)
-        history.pushState({}, currentPage, `#${currentPage}`);
-        document.getElementById(currentPage).dispatchEvent(app.show);
+            document.querySelector('.active').classList.remove('active');
+            document.getElementById(currentPage).classList.add('active');
+            console.log(currentPage)
+            history.pushState({}, currentPage, `#${currentPage}`);
+            document.getElementById(currentPage).dispatchEvent(app.show);
+
     }, poppin: function (ev) {
         console.log(location.hash, 'popstate event');
         let hash = location.hash.replace('#', '');
@@ -31,38 +32,75 @@ const app = {
         document.getElementById(hash).dispatchEvent(app.show);
     }
 }
+document.addEventListener('DOMContentLoaded', app.init);
+
+// login
+function login() {
+
+    const fxhr = new FXMLHttpRequest();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    fxhr.open("POST", "/login");
+    fxhr.send({ name: username, password: password }, (message) => {
+        alert(message);
+    });
+}
+
+//register
+document.getElementById("registerForm")
+    .addEventListener("button", function (event) {
+        event.preventDefault();
+        const fxhr = new FXMLHttpRequest();
+        const username = document.getElementById("newUsername").value;
+        const password = document.getElementById("newPassword").value;
+        const email = document.getElementById("email").value;
+        fxhr.open("POST", "/register");
+        fxhr.send({ username: username, password: password, mail: email }, (message) => {
+            alert(message);
+        });
+    });
+
+let meetingdata = {
+    day: "",
+    hour: "",
+    location: "",
+    data: ","
+}
+let meetingslist = [];
+
 // a function that gets all meetings of specific user
 function getmeetings() {
-    let meetings = [];
-  
-    const fxhr = new FXHR();
-    fxhr.open("GET", "");
-    fxhr.send({ meeting: "meeting" }, (meetinglist) => {
-      meetings = meetinglist;
-    });
-    return meetings;
-  }
+
+}
+
+// add meeting
+
+// button to add meeting
 function addMeeting() {
     document.getElementById("newmeeting").style.visibility = "visible";
 }
+//button to exit the adding form
 function exit() {
     document.getElementById("newmeeting").style.visibility = "hidden";
 }
-let meetinglist =[];
-function add(){
-   const date =document.getElementById("date") ;
-   const time =document.getElementById("time") ;
-   const place =document.getElementById("place") ;
-   const discription =document.getElementById("discription") ;
-   const fxhr = new FXHR();
-   fxhr.open('Post', '');
-   meetinglist = !meetinglist ? [] : meetinglist;
-   let meetingdata = {day: date, hour: time, location: place,data:discription};
-   meetinglist.push(meetingdata);
-   fxhr.send({ meeting: meetinglist[meetinglist.length-1] }, (message) => {
-    alert(message);});
+// adding a meeting
+function add() {
+    meetingdata.day = document.getElementById("date");
+    meetingdata.hour = document.getElementById("time");
+    meetingdata.location = document.getElementById("place");
+    meetingdata.data = document.getElementById("discription");
+    const fxhr = new FXHR();
+    const body = meetingdata;
+    fxhr.open('Post', '/meetings', true);
+    const res = fxhr.send(body);
+    if (res.status == 200) {
+
+    } else {
+
+    }
 }
-document.addEventListener('DOMContentLoaded', app.init);
+
 const select = document.getElementById('select');
 select.addEventListener('change', selectChange());
 
