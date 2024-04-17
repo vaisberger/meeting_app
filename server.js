@@ -130,7 +130,7 @@ class FServer {
 
     #register(obj) {
         let exist = this.#db.GetUserByFilter(u => u.name === obj.name);
-        if (exist === -1) {
+        if (exist.length == 0) {
             this.#db.AddUser(obj);
             this.#loggedUser = obj.name;
             return { status: 201, body: obj };
