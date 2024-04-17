@@ -39,28 +39,26 @@ document.addEventListener('DOMContentLoaded', app.init);
 // login
 function login() {
 
-    const fxhr = new FXMLHttpRequest();
+    const fxhr = new FXHR();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
     fxhr.open("POST", "/login");
-    fxhr.send({ name: username, password: password }, (message) => {
-        alert(message);
-    });
+    let res = fxhr.send({object:{ name: username, password: password }});
+    alert(res);
 }
 
 //register
 document.getElementById("registerForm")
     .addEventListener("button", function (event) {
         event.preventDefault();
-        const fxhr = new FXMLHttpRequest();
+        const fxhr = new FXHR();
         const username = document.getElementById("newUsername").value;
         const password = document.getElementById("newPassword").value;
         const email = document.getElementById("email").value;
         fxhr.open("POST", "/register");
-        fxhr.send({ username: username, password: password, mail: email }, (message) => {
-            alert(message);
-        });
+        let res = fxhr.send({object: { username: username, password: password, mail: email }});
+        alert(res);
     });
 
 let meetingdata = {
@@ -103,7 +101,7 @@ function add() {
     }
 }
 
-const select = document.getElementById('select');
+const select = document.getElementById('date');
 select.addEventListener('change', selectChange());
 
 function selectChange() {
@@ -121,6 +119,7 @@ function selectChange() {
     if (res.status == 200) {
 
     }
+
 
 }
 
@@ -141,3 +140,4 @@ function showMeetings(filter) {
     }
 
 }
+

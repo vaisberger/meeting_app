@@ -5,14 +5,14 @@ class Network{
 
     static instance = null;
 
-    static getInstance() {
+    static GetInstance() {
         if (!Network.instance) {
             Network.instance = new Network();
         }
         return Network.instance;
     }
 
-    send(data){
+    Send(data){
         return this['#svr'].HandleRequest(data);
     }
 }

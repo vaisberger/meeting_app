@@ -15,12 +15,12 @@ class FXHR {
     send(data, dispatcher = null) {
         this.msg.body = data;
         if (!this.#async)
-            return this['#net'].send(this.msg);
+            return this['#net'].Send(this.msg);
         else
             setTimeout(
                 () => {
 
-                    const res = this['#net'].send_async(this.msg);;
+                    const res = this['#net'].Send(this.msg);;
                     dispatcher(res);
                 },
                 2
