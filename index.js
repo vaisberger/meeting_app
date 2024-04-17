@@ -131,7 +131,14 @@ function selectChange() {
 }
 
 function showMeetings(filter) {
-    let li = "",sun="";
+    let li = "",
+    sun="",
+    mon="",
+    tue="",
+    wed="",
+    thu="",
+    fri="",
+    sat="";
     if (meetingslist) {
       meetingslist.forEach((meeting) => {
         if (filter == meeting.status || filter == "all") {
@@ -142,6 +149,7 @@ function showMeetings(filter) {
            <li>discription:${data}</li>
       </li>`                  
         }
+        meetings.innerHTML.id(sun) = li;
         // לשייך ליום ולשלוח
       });
     }
