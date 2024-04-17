@@ -17,6 +17,11 @@ const app = {
     nav: function (ev) {
         ev.preventDefault();
         let currentPage = ev.target.getAttribute('data-target');
+        
+        if (currentPage === 'home'){
+            login();
+        }
+
             document.querySelector('.active').classList.remove('active');
             document.getElementById(currentPage).classList.add('active');
             console.log(currentPage)
