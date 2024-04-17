@@ -11,7 +11,7 @@
 
 <body>
     <main>
-        <div class="page active" id="home">
+        <div class="page" id="home">
             <div class="navbar">
                 <img id="logo" src="/imgs\icon.png">
                 <a href="#" data-target="home" class="nav-link">Home</a>
@@ -99,7 +99,7 @@
             </div>
         </div>
 
-        <div class="page" id="login">
+        <div class="page active" id="login">
             <div class="container">
                 <h2>Login</h2>
                 <form id="loginForm">
@@ -114,8 +114,7 @@
                         <span class="toggle-password" onclick="togglePasswordVisibility('password')"></span>
                     </div>
 
-                    <button id="btn" type="button" href="#" data-target="home" class="nav-link"
-                        onclick="login()">Login</button>
+                    <button id="btn" type="button" href="#" data-target="home" class="nav-link">Login</button>
                 </form>
                 <p>If you are not registered, <a href="#" data-target="registration" class="nav-link">click here</a> to
                     register.</p>
