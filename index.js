@@ -2,40 +2,36 @@ const dates = document.querySelectorAll('.days');
 const app = {
     pages: [],
     show: new Event('show'),
-    init: function () {
+    init: function(){
         app.pages = document.querySelectorAll('.page');
-        app.pages.forEach((pg) => {
+        app.pages.forEach((pg)=>{
             pg.addEventListener('show', app.pageShown);
         })
-
-        document.querySelectorAll('.nav-link').forEach((link) => {
+        
+        document.querySelectorAll('.nav-link').forEach((link)=>{
             link.addEventListener('click', app.nav);
         })
         history.replaceState({}, 'Home', '#home');
         window.addEventListener('popstate', app.poppin);
     },
-    nav: function (ev) {
+    nav: function(ev){
         ev.preventDefault();
         let currentPage = ev.target.getAttribute('data-target');
-        
-        if (currentPage === 'home'){
-            login();
-        }
-
+        if (currentPage!=="home"||(document.querySelector('.active').id==="login"&&login())||(document.querySelector('.active').id==="registration"&&register()) ){
             document.querySelector('.active').classList.remove('active');
             document.getElementById(currentPage).classList.add('active');
             console.log(currentPage)
             history.pushState({}, currentPage, `#${currentPage}`);
             document.getElementById(currentPage).dispatchEvent(app.show);
-            meetingslist = getmeetings();
-            showTodo("all");
-
-    }, poppin: function (ev) {
+        }
+    },
+    poppin: function(ev){
         console.log(location.hash, 'popstate event');
-        let hash = location.hash.replace('#', '');
+        let hash = location.hash.replace('#' ,'');
         document.querySelector('.active').classList.remove('active');
         document.getElementById(hash).classList.add('active');
         console.log(hash)
+        //history.pushState({}, currentPage, `#${currentPage}`);
         document.getElementById(hash).dispatchEvent(app.show);
     }
 }
@@ -50,21 +46,27 @@ function login() {
 
     fxhr.open("POST", "/login");
     let res = fxhr.send({object:{ name: username, password: password }});
-    alert(res);
+    alert(res.body);
+    if (res.status == 200){
+        return true;
+    }
+    return false;
 }
 
 //register
-document.getElementById("registerForm")
-    .addEventListener("button", function (event) {
-        event.preventDefault();
-        const fxhr = new FXHR();
+function register(){
+        const fxhr = new FXHR(); 
         const username = document.getElementById("newUsername").value;
         const password = document.getElementById("newPassword").value;
         const email = document.getElementById("email").value;
         fxhr.open("POST", "/register");
         let res = fxhr.send({object: { username: username, password: password, mail: email }});
-        alert(res);
-    });
+        alert(res.body);
+        if (res.status == 201) {
+            return true;
+        } 
+        return false;
+    }
 
 let meetingdata = {
     day: "",
