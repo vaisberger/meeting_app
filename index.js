@@ -60,7 +60,7 @@ function register(){
         const password = document.getElementById("newPassword").value;
         const email = document.getElementById("email").value;
         fxhr.open("POST", "/register");
-        let res = fxhr.send({object: { username: username, password: password, mail: email }});
+        let res = fxhr.send({object: { name: username, password: password, mail: email }});
         alert(res.body);
         if (res.status == 201) {
             return true;
