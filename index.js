@@ -22,6 +22,8 @@ const app = {
             console.log(currentPage)
             history.pushState({}, currentPage, `#${currentPage}`);
             document.getElementById(currentPage).dispatchEvent(app.show);
+            meetingslist = getmeetings();
+            showTodo("all");
 
     }, poppin: function (ev) {
         console.log(location.hash, 'popstate event');
@@ -122,5 +124,20 @@ function selectChange() {
 
 }
 
+function showMeetings(filter) {
+    let li = "",sun="";
+    if (meetingslist) {
+      meetingslist.forEach((meeting) => {
+        if (filter == meeting.status || filter == "all") {
+          li = `<li class="meeting">
+          <input type="checkbox" id="mark">
+          <li>time: ${time}</li>
+          <li>location:${place}</li>
+           <li>discription:${data}</li>
+      </li>`                  
+        }
+        // לשייך ליום ולשלוח
+      });
+    }
 
-
+}

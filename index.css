@@ -67,16 +67,19 @@ html {
     background-color: lightblue;
     width: 100%;
     border: 1px solid white;
-    text-align: center;
     vertical-align: top;
     color: darkslategrey;
     height: 400px;
+    text-align: left;
+    color: darkcyan;
+    font-family: Calibri;
 }
 
 .day {
     background-color: darkcyan;
     font-size: larger; 
 }
+
 #date{
     padding: 10px;
     border: 1px solid #ccc;
@@ -105,7 +108,7 @@ h1{
 .grid {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(7, 140px);
+    grid-template-columns: repeat(7, 200px);
 }
 
 /* login page*/
