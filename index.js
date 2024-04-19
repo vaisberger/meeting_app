@@ -23,6 +23,8 @@ const app = {
             console.log(currentPage)
             history.pushState({}, currentPage, `#${currentPage}`);
             document.getElementById(currentPage).dispatchEvent(app.show);
+            meetingslist=getmeetings();
+            showMeetings("all");
         }
     },
     poppin: function(ev){
@@ -78,7 +80,13 @@ let meetingslist = [];
 
 // a function that gets all meetings of specific user
 function getmeetings() {
-
+    let usermeetings = [];
+    const fxhr = new FXHR();
+    fxhr.open("GET", "/meetings");
+    fxhr.send({ }, (allmeetings) => {
+      usermeetings =allmeetings;
+    });
+    return userTasklist;
 }
 
 // add meeting
@@ -93,19 +101,17 @@ function exit() {
 }
 // adding a meeting
 function add() {
-    meetingdata.day = document.getElementById("date");
-    meetingdata.hour = document.getElementById("time");
-    meetingdata.location = document.getElementById("place");
-    meetingdata.data = document.getElementById("discription");
+    meetingdata.day = document.getElementById("date").value;
+    meetingdata.hour = document.getElementById("time").value;
+    meetingdata.location = document.getElementById("place").value;
+    meetingdata.data = document.getElementById("discription").value;
     const fxhr = new FXHR();
-    const body = meetingdata;
+    const obj = meetingdata;
     fxhr.open('Post', '/meetings', true);
-    const res = fxhr.send(body);
-    if (res.status == 200) {
-
-    } else {
-
-    }
+    const res = fxhr.send(obj);
+    //alert(res.body);
+    meetingslist=getmeetings();
+    showMeetings("all");
 }
 
 const select = document.getElementById('date');
@@ -129,7 +135,11 @@ function selectChange() {
 
 
 }
+//deletes a spcific meeting
+function delete_meeting(){
 
+}
+ //shows all posted meeting
 function showMeetings(filter) {
     let li = "",
     sun="",
@@ -143,16 +153,47 @@ function showMeetings(filter) {
       meetingslist.forEach((meeting) => {
         if (filter == meeting.status || filter == "all") {
           li = `<li class="meeting">
-          <input type="checkbox" id="mark">
-          <li>time: ${time}</li>
-          <li>location:${place}</li>
-           <li>discription:${data}</li>
+          <input type="checkbox" class="radio" id="mark">
+          <li>time: ${meeting.time}</li>
+          <li>location:${meeting.place}</li>
+           <li>discription:${meeting.data}</li>
       </li>`                  
         }
-        meetings.innerHTML.id(sun) = li;
-        // לשייך ליום ולשלוח
+        if(meeting.date==='sun'){
+           sun+=li;
+        }
+        else if(meeting.date==='mon'){
+            mon+=li;
+        }
+        else if(meeting.date==='tue'){
+            tue+=li;
+        }
+        else if(meeting.date==='wed'){
+            wed+=li;
+        }
+        else if(meeting.date==='thu'){
+            thu+=li; 
+        }
+        else if(meeting.date==='fri'){
+            fri+=li;
+        }else{
+            sat+=li;
+        }
       });
     }
-
+    document.getElementById("sun").innerHTML = sun;
+    document.getElementById("mon").innerHTML = mon;
+    document.getElementById("tue").innerHTML = tue;
+    document.getElementById("wed").innerHTML = wed;
+    document.getElementById("thu").innerHTML = thu;
+    document.getElementById("fri").innerHTML = fri;
+    document.getElementById("sat").innerHTML = sat;
 }
 
+let boxes = document.querySelectorAll("input[type=checkbox]");
+boxes.forEach(b => b.addEventListener("change", tick));
+function tick(e) {
+  let state = e.target.checked; 
+  boxes.forEach(b => b.checked = false); 
+  e.target.checked = state;
+}
