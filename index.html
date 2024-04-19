@@ -11,7 +11,7 @@
 
 <body>
     <main>
-        <div class="page" id="home">
+        <div class="page active" id="home">
             <div class="navbar">
                 <img id="logo" src="/imgs\icon.png">
                 <a href="#" data-target="home" class="nav-link">Home</a>
@@ -78,11 +78,17 @@
                 <div class="days" data-name="">
                     <ul class="meetings" id="sun">
                         <li class="meeting">
-                            <input type="checkbox" id="mark">
+                            <label><input type=checkbox name="1"></label>
                             <li>time: ${time}</li>
                             <li>location:${place}</li>
                              <li>discription:${data}</li>
-                        </li>` 
+                        </li>`  
+                        <li class="meeting">
+                            <label><input type=checkbox name="2"></label>
+                            <li>time: ${time}</li>
+                            <li>location:${place}</li>
+                             <li>discription:${data}</li>
+                        </li>
                     </ul>
                 </div>
                 <div class="days" data-name="">
@@ -106,7 +112,7 @@
             </div>
         </div>
 
-        <div class="page active" id="login">
+        <div class="page" id="login">
             <div class="container">
                 <h2>Login</h2>
                 <form id="loginForm">
