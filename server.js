@@ -73,7 +73,7 @@ class FServer {
                 const filter = obj => {
                     return obj.date === object.date && obj.time === object.time;
                 };
-                if (this.#db.GetMeetingsByFilter(this.#loggedUser, filter).length === 0))
+                if (this.#db.GetMeetingsByFilter(this.#loggedUser, filter).length === 0)
                     return { status: 201, body: this.#db.AddMeeting(object) };
                 return { status: 409, body: 'Meeting in the same time Already Exists' };
             default:
