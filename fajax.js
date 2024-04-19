@@ -20,8 +20,9 @@ class FXHR {
             setTimeout(
                 () => {
 
-                    const res = this['#net'].Send(this.msg);;
-                    dispatcher(res);
+                    const res = this['#net'].Send(this.msg);
+                    if (dispatcher) 
+                        dispatcher(res);
                 },
                 2
             );

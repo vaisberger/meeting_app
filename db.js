@@ -1,4 +1,6 @@
 class DB {
+    #m_index = 0;
+
     constructor() {
         if (!localStorage.getItem('users'))
             localStorage.setItem('users', JSON.stringify([]));
@@ -75,6 +77,7 @@ class DB {
         const u_meetings = meetings[name];
 
         if (u_meetings) {
+            meeting.id = u_index ++;
             u_meetings.push(meeting);
             localStorage.setItem('meetings', JSON.stringify(meetings));
 
@@ -84,10 +87,10 @@ class DB {
         return null;
     };
 
-    DelMeeting(name, date, time) {
+    DelMeeting(name, id) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
         const u_meetings = meetings[name];
-        const index = u_meetings.findIndex(m => m.date === date && m.time === time) || -1;
+        const index = u_meetings.findIndex(m => m.id == id) || -1;
 
         if (index !== -1){
             u_meetings.splice(index, 1);
@@ -101,7 +104,7 @@ class DB {
     UpdateMeeting(name, meeting) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
         const u_meetings = meetings[name];
-        const index = u_meetings.findIndex(m => m.date === meeting.date && m.time === meeting.time) || -1;
+        const index = u_meetings.findIndex(m => m.id == meeting.id) || -1;
 
         if (index !== -1){
             u_meetings[index] = meeting;
@@ -112,10 +115,10 @@ class DB {
         return null;
     };
 
-    GetMeeting(name, date, time) {
+    GetMeeting(name, id) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
         const u_meetings = meetings[name];
-        const index = u_meetings.findIndex(m => m.date === date && m.time === time);
+        const index = u_meetings.findIndex(m => m.id == id);
 
         return meetings[index] || null;
     };
