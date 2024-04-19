@@ -82,7 +82,7 @@ let meetingslist = [];
 function getmeetings() {
     let usermeetings = [];
     const fxhr = new FXHR();
-    fxhr.open("GET", "/meetings");
+    fxhr.open("GET", "/meetings",true);
     fxhr.send({ }, (allmeetings) => {
       usermeetings =allmeetings;
     });
