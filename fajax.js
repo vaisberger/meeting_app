@@ -3,7 +3,7 @@ class FXHR {
     #async = false;
 
     constructor() {
-        this['#net'] = Network.GetInstance();
+        this['#net'] = new Network();
     }
 
     open(method, url, async = false) {
