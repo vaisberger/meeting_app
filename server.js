@@ -1,6 +1,11 @@
 class FServer {
-    #db = new DB();
+    #db = null;
     #loggedUser = null;
+
+    constructor(){
+        this.#loggedUser = localStorage.getItem('loggedUser') || null;
+        this.#db = new DB();
+    }
 
     HandleRequest(data) {
         return this.#handleRequest(data.method, data.path, data.body);
@@ -54,7 +59,7 @@ class FServer {
     }
 
     #handlePostRequest(path, data) {
-        const object = data;
+        const object = data.object;
 
         switch (path) {
             case '/login':
@@ -122,7 +127,8 @@ class FServer {
     #login(obj) {
         let user = this.#db.GetUser(obj.name);
         if (user && user.password === obj.password) {
-            this.#loggedUser = user;
+            this.#loggedUser = obj.name;
+            localStorage.setItem('loggedUser', obj.name);
             return { status: 200, body: user };
         }
         else
@@ -135,6 +141,7 @@ class FServer {
         if (exist.length == 0) {
             this.#db.AddUser(obj);
             this.#loggedUser = obj.name;
+            localStorage.setItem('loggedUser', obj.name);
             return { status: 201, body: obj };
         }
         else

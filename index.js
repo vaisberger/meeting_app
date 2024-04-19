@@ -108,7 +108,7 @@ function add() {
     const fxhr = new FXHR();
     const obj = meetingdata;
     fxhr.open('POST', '/meeting', true);
-    const res = fxhr.send(obj);
+    const res = fxhr.send({object: obj});
     //alert(res.body);
     meetingslist=getmeetings();
     showMeetings("all");
