@@ -1,5 +1,5 @@
 class FServer {
-    #db = DB.GetInstance();
+    #db = new DB();
     #loggedUser = null;
 
     HandleRequest(data) {

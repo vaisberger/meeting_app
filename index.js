@@ -82,9 +82,9 @@ let meetingslist = [];
 function getmeetings() {
     let usermeetings = [];
     const fxhr = new FXHR();
-    fxhr.open("GET", "/meetings");
-    fxhr.send({ }, (allmeetings) => {
-      usermeetings =allmeetings;
+    fxhr.open("GET", "/meetings", true);
+    fxhr.send({ }, (response) => {
+      usermeetings =response.body;
     });
     return userTasklist;
 }
@@ -107,7 +107,7 @@ function add() {
     meetingdata.data = document.getElementById("discription").value;
     const fxhr = new FXHR();
     const obj = meetingdata;
-    fxhr.open('Post', '/meetings', true);
+    fxhr.open('Post', '/meeting', true);
     const res = fxhr.send(obj);
     //alert(res.body);
     meetingslist=getmeetings();
