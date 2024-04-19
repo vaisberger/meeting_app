@@ -74,7 +74,7 @@ class FServer {
                     return obj.date === object.date && obj.time === object.time;
                 };
                 if (this.#db.GetMeetingsByFilter(this.#loggedUser, filter).length === 0)
-                    return { status: 201, body: this.#db.AddMeeting(object) };
+                    return { status: 201, body: this.#db.AddMeeting(this.#loggedUser, object) };
                 return { status: 409, body: 'Meeting in the same time Already Exists' };
             default:
                 return { status: 404, body: 'Not Found' };

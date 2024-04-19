@@ -3,7 +3,7 @@ class DB {
         if (!localStorage.getItem('users'))
             localStorage.setItem('users', JSON.stringify([]));
         if (!localStorage.getItem('meetings'))
-            localStorage.setItem('meetings', JSON.stringify([]));
+            localStorage.setItem('meetings', JSON.stringify({}));
         if (!localStorage.getItem('m_index'))
             localStorage.setItem('m_index', JSON.stringify(0));
     }
@@ -74,7 +74,7 @@ class DB {
         const u_meetings = meetings[name];
 
         if (u_meetings) {
-            meeting.id = this.#getMIndex;
+            meeting.id = this.#getMIndex();
             u_meetings.push(meeting);
             localStorage.setItem('meetings', JSON.stringify(meetings));
 
