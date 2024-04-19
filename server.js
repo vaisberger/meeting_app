@@ -54,7 +54,7 @@ class FServer {
     }
 
     #handlePostRequest(path, data) {
-        const object = data.object;
+        const object = data;
 
         switch (path) {
             case '/login':
