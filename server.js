@@ -38,9 +38,8 @@ class FServer {
                 res = this.#db.GetMeetings(this.#loggedUser);
                 break;
             case '/meeting':
-                const date = query.get('date');
-                const time = query.get('time');
-                res = this.#db.GetMeeting(this.#loggedUser, date, time);
+                const id = query.get('id');
+                res = this.#db.GetMeeting(this.#loggedUser, id);
                 break;
             case '/meetings/filtered':
                 filter = body['filter'];
@@ -66,7 +65,10 @@ class FServer {
                 this.#loggedUser = null;
                 return { status: 204 };
             case '/meeting':
-                if (!this.#db.GetMeeting(this.#loggedUser, object.date, object.time))
+                const filter = obj => {
+                    return obj.date === object.date && obj.time === object.time;
+                };
+                if (!this.#db.GetMeetingsByFilter(this.#loggedUser, filter))
                     return { status: 201, body: this.#db.AddMeeting(object) };
                 return { status: 409, body: 'Meeting in the same time Already Exists' };
             default:
@@ -84,7 +86,7 @@ class FServer {
                     res = this.#db.UpdateUser(object);
                 break;
             case '/meetings':
-                res = this.#db.UpdateMeeting(object);
+                res = this.#db.UpdateMeeting(this.#loggedUser, object);
                 break;
             default:
         }
@@ -106,7 +108,7 @@ class FServer {
                     this.#loggedUser = null;
                 break;
             case '/meeting':
-                res = this.#db.DelMeeting(this.#loggedUser, query.get('date'), query.get('time'));
+                res = this.#db.DelMeeting(this.#loggedUser, query.get('id'));
                 break;
             default:
         }
