@@ -180,7 +180,7 @@ function menue_buttons(meeting) {
 
     // Create the "Edit" element
     const editLi = document.createElement('li');
-    const editBtn = document.createElement('button');
+    const editBtn = document.createElement('button');;
     editBtn.innerHTML = '<i class="uil uil-pen"></i>Edit';
     editBtn.addEventListener('click', () => {
         show_update_card(meeting);

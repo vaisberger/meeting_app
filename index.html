@@ -21,8 +21,8 @@
             </div>
             <div class="grid-container">
                 <div class="grid-item"> <input type="text" placeholder="Search.."></div>
-                <div class="grid-item"><button type="button" onclick="register()">delete meeting</button></div>
-                <div class="grid-item"><button type="button" onclick="addMeeting()">Add meeting</button></div>
+                <div class="grid-item"><button type="button" class="sty" onclick="register()">delete meeting</button></div>
+                <div class="grid-item"><button type="button" class="sty" onclick="addMeeting()">Add meeting</button></div>
                 <div class="grid-item">
                     <form id="newmeeting">
                         <span class="exit" onclick="exit()"></span>
@@ -51,7 +51,7 @@
                             <input type="text" id="discription" maxlength="15">
                         </div>
                         <div class="grid-item" >
-                            <button id="n_u_meeting" type="button" onclick="add()">Add</button>
+                            <button id="n_u_meeting" type="button" class="sty" onclick="add()">Add</button>
                         </div>
                     </form>
                 </div>
@@ -130,7 +130,7 @@
                         <span class="toggle-password" onclick="togglePasswordVisibility('password')"></span>
                     </div>
 
-                    <button id="btn" type="button" href="#" data-target="home" class="nav-link">Login</button>
+                    <button class="sty" id="btn" type="button" href="#" data-target="home" class="nav-link">Login</button>
                 </form>
                 <p>If you are not registered, <a href="#" data-target="registration" class="nav-link">click here</a> to
                     register.</p>
@@ -157,7 +157,7 @@
                         <input type="email" id="email" required>
                     </div>
 
-                    <button type="submit" href="#" data-target="home" class="nav-link">Register</button>
+                    <button class="sty" type="submit" href="#" data-target="home" class="nav-link">Register</button>
                 </form>
 
             </div>
