@@ -141,15 +141,27 @@ function delete_meeting(id) {
 }
 
 function edit_meeting(meeting) {
-    meetingdata.date = document.getElementById("date").value;
-    meetingdata.time = document.getElementById("time").value;
-    meetingdata.location = document.getElementById("place").value;
-    meetingdata.data = document.getElementById("discription").value;
+    meeting.date = document.getElementById("date").value;
+    meeting.time = document.getElementById("time").value;
+    meeting.location = document.getElementById("place").value;
+    meeting.data = document.getElementById("discription").value;
+    
     const fxhr = new FXHR();
-    const obj = meetingdata;
     fxhr.open('PUT', '/meeting', true);
-    const res = fxhr.send({ object: meetingdata }, treatPutMeeting(response));
-    showMeetings("all");
+    fxhr.send({ object: meeting }, response => {
+        if (response.status == 200) {
+            getmeetings(showMeetings, 'all');
+        }
+        else {
+            alert(response.body);
+        }
+    });
+
+    exit();
+    const btn = document.getElementById('n_u_meeting');
+    btn.removeEventListener('click', edit_meeting);
+    btn.addEventListener('click', add);
+    btn.innerText = 'Add';
 }
 
 function show_update_card(meeting) {
@@ -160,11 +172,11 @@ function show_update_card(meeting) {
     addMeeting();
 }
 
-function m_buttons(meeting) {
+function menue_buttons(meeting) {
     const ul = document.createElement('ul');
     ul.classList.add('task-menu');
 
-    // Create the "Edit" <li> element
+    // Create the "Edit" element
     const editLi = document.createElement('li');
     const editBtn = document.createElement('button');
     editBtn.innerHTML = '<i class="uil uil-pen"></i>Edit';
@@ -173,7 +185,7 @@ function m_buttons(meeting) {
     });
     editLi.appendChild(editBtn);
 
-    // Create the "Delete" <li> element
+    // Create the "Delete" element
     const deleteLi = document.createElement('li');
     const deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = '<i class="uil uil-trash"></i>Delete';
@@ -182,20 +194,15 @@ function m_buttons(meeting) {
     });
     deleteLi.appendChild(deleteBtn);
 
-    // Append the <li> elements to the <ul> element
     ul.appendChild(editLi);
     ul.appendChild(deleteLi);
 
     return ul;
 }
+
 function meetingGuiItem(meeting) {
     const li = document.createElement('li');
     li.classList.add('meeting');
-
-    // const checkbox = document.createElement('input');
-    // checkbox.type = 'checkbox';
-    // checkbox.classList.add('radio');
-    // checkbox.id = 'mark';
 
     const dateItem = document.createElement('li');
     dateItem.textContent = `Day: ${meeting.date}`;
@@ -209,15 +216,22 @@ function meetingGuiItem(meeting) {
     const descriptionItem = document.createElement('li');
     descriptionItem.textContent = `Description: ${meeting.data}`;
 
-    const ul = m_buttons(meeting);
+    const ul = menue_buttons(meeting);
 
-    // li.appendChild(checkbox);
     li.appendChild(timeItem);
     li.appendChild(locationItem);
     li.appendChild(descriptionItem);
     li.appendChild(ul);
 
     return li;
+}
+
+function appendMettings(divName, meetingsLi){
+    let div = document.getElementById(divName);
+    while (div.firstChild) {
+        div.removeChild(div.firstChild);
+    }
+    meetingsLi.forEach(item => div.appendChild(item));
 }
 //shows all posted meeting
 function showMeetings(meetingslist, filter) {
@@ -256,8 +270,7 @@ function showMeetings(meetingslist, filter) {
             }
         });
     }
-    let sunDiv = document.getElementById("sun");
-    sun.forEach(item => sunDiv.appendChild(item));
+    appendMettings('sun', sun);
     document.getElementById("mon").innerHTML = mon;
     document.getElementById("tue").innerHTML = tue;
     document.getElementById("wed").innerHTML = wed;

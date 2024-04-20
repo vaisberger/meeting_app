@@ -97,7 +97,7 @@ class FServer {
         }
 
         if (res)
-            return { status: 200, body: data };
+            return { status: 200, body: res };
         return { status: 404, body: `${data} Not Found` };
     }
 
