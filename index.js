@@ -94,12 +94,12 @@ function getmeetings(dispatcher, filter) {
 // add meeting
 
 // button to add meeting
-function addMeeting() {
-    document.getElementById("newmeeting").style.visibility = "visible";
+function drawMInput(id) {
+    document.getElementById(id).style.visibility = "visible";
 }
 //button to exit the adding form
-function exit() {
-    document.getElementById("newmeeting").style.visibility = "hidden";
+function exit(id) {
+    document.getElementById(id).style.visibility = "hidden";
 }
 // adding a meeting
 function add() {
@@ -112,6 +112,7 @@ function add() {
     fxhr.open('POST', '/meeting', true);
     const res = fxhr.send({ object: obj });
     getmeetings(showMeetings, 'all');
+    exit('newmeeting');
 }
 
 const select = document.getElementById('date');
@@ -141,11 +142,11 @@ function delete_meeting(id) {
 }
 
 function edit_meeting(meeting) {
-    meeting.date = document.getElementById("date").value;
-    meeting.time = document.getElementById("time").value;
-    meeting.location = document.getElementById("place").value;
-    meeting.data = document.getElementById("discription").value;
-    
+    meeting.date = document.getElementById("up_date").value;
+    meeting.time = document.getElementById("up_time").value;
+    meeting.location = document.getElementById("up_place").value;
+    meeting.data = document.getElementById("up_discription").value;
+
     const fxhr = new FXHR();
     fxhr.open('PUT', '/meeting', true);
     fxhr.send({ object: meeting }, response => {
@@ -157,19 +158,7 @@ function edit_meeting(meeting) {
         }
     });
 
-    exit();
-    const btn = document.getElementById('n_u_meeting');
-    btn.removeEventListener('click', edit_meeting);
-    btn.addEventListener('click', add);
-    btn.innerText = 'Add';
-}
-
-function show_update_card(meeting) {
-    const btn = document.getElementById('n_u_meeting');
-    btn.removeEventListener('click', add);
-    btn.addEventListener('click', edit_meeting(meeting));
-    btn.innerText = 'Update';
-    addMeeting();
+    exit('updateMeeting');
 }
 
 function menue_buttons(meeting) {
@@ -181,7 +170,12 @@ function menue_buttons(meeting) {
     const editBtn = document.createElement('button');
     editBtn.innerHTML = '<i class="uil uil-pen"></i>Edit';
     editBtn.addEventListener('click', () => {
-        show_update_card(meeting);
+        drawMInput('updateMeeting');
+
+        let old_element = document.getElementById('updateBtn');
+        let new_element = old_element.cloneNode(true);
+        old_element.parentNode.replaceChild(new_element, old_element);
+        new_element.addEventListener('click', _ => edit_meeting(meeting));
     });
     editLi.appendChild(editBtn);
 
@@ -226,7 +220,7 @@ function meetingGuiItem(meeting) {
     return li;
 }
 
-function appendMettings(divName, meetingsLi){
+function appendMettings(divName, meetingsLi) {
     let div = document.getElementById(divName);
     while (div.firstChild) {
         div.removeChild(div.firstChild);
