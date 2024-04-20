@@ -24,7 +24,7 @@ class FXHR {
                     if (dispatcher) 
                         dispatcher(res);
                 },
-                2
+               
             );
     }
 }
