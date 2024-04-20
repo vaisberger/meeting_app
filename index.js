@@ -13,6 +13,7 @@ const app = {
         })
         history.replaceState({}, 'Home', '#home');
         window.addEventListener('popstate', app.poppin);
+        getmeetings(showMeetings, 'all');
     },
     nav: function (ev) {
         ev.preventDefault();
@@ -34,6 +35,7 @@ const app = {
         console.log(hash)
         //history.pushState({}, currentPage, `#${currentPage}`);
         document.getElementById(hash).dispatchEvent(app.show);
+        getmeetings(showMeetings, 'all');
     }
 }
 document.addEventListener('DOMContentLoaded', app.init);
@@ -167,7 +169,7 @@ function menue_buttons(meeting) {
 
     // Create the "Edit" element
     const editLi = document.createElement('li');
-    const editBtn = document.createElement('button');
+    const editBtn = document.createElement('button');;
     editBtn.innerHTML = '<i class="uil uil-pen"></i>Edit';
     editBtn.addEventListener('click', () => {
         drawMInput('updateMeeting');
@@ -231,12 +233,12 @@ function appendMettings(divName, meetingsLi) {
 function showMeetings(meetingslist, filter) {
     let li = "",
         sun = [],
-        mon = "",
-        tue = "",
-        wed = "",
-        thu = "",
-        fri = "",
-        sat = "";
+        mon = [],
+        tue =[],
+        wed = [],
+        thu = [],
+        fri = [],
+        sat = [];
     if (meetingslist) {
         meetingslist.forEach((meeting) => {
             if (filter == meeting.status || filter == "all") {
@@ -246,31 +248,31 @@ function showMeetings(meetingslist, filter) {
                 sun.push(li);
             }
             else if (meeting.date === 'mon') {
-                mon += li;
+                mon.push(li);
             }
             else if (meeting.date === 'tue') {
-                tue += li;
+                tue.push(li);
             }
             else if (meeting.date === 'wed') {
-                wed += li;
+                wed.push(li);
             }
             else if (meeting.date === 'thu') {
-                thu += li;
+                thu.push(li);
             }
             else if (meeting.date === 'fri') {
-                fri += li;
+                fri.push(li);
             } else {
-                sat += li;
+                sat.push(li);
             }
         });
     }
     appendMettings('sun', sun);
-    document.getElementById("mon").innerHTML = mon;
-    document.getElementById("tue").innerHTML = tue;
-    document.getElementById("wed").innerHTML = wed;
-    document.getElementById("thu").innerHTML = thu;
-    document.getElementById("fri").innerHTML = fri;
-    document.getElementById("sat").innerHTML = sat;
+    appendMettings('mon', mon);
+    appendMettings('tue', tue);
+    appendMettings('wed', wed);
+    appendMettings('thu', thu);
+    appendMettings('fri', fri);
+    appendMettings('sat', sat);
 }
 
 let boxes = document.querySelectorAll("input[type=checkbox]");
