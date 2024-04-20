@@ -26,7 +26,7 @@ class FServer {
         }
     }
 
-    #handleGetRequest(path, body) {
+    #handleGetRequest(path, data) {
         const [basePath, queryParams] = path.split('?');
         const query = new URLSearchParams(queryParams);
         let res = null;
@@ -36,7 +36,7 @@ class FServer {
                 res = this.#db.GetUser(this.#loggedUser);
                 break;
             case '/users/filtered':
-                let filter = body['filter'];
+                let filter = data['filter'];
                 res = this.#db.GetUserByFilter(filter);
                 break;
             case '/meetings':
@@ -47,7 +47,7 @@ class FServer {
                 res = this.#db.GetMeeting(this.#loggedUser, id);
                 break;
             case '/meetings/filtered':
-                filter = body['filter'];
+                filter = data['filter'];
                 res = this.#db.GetMeetingsByFilter(this.#loggedUser, filter);
                 break;
             default:

@@ -130,7 +130,7 @@ class DB {
     GetMeetings(name) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
         const u_meetings = meetings[name] || [];
-        return meetings;
+        return u_meetings;
     };
 }
 
