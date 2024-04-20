@@ -23,8 +23,7 @@ const app = {
             console.log(currentPage)
             history.pushState({}, currentPage, `#${currentPage}`);
             document.getElementById(currentPage).dispatchEvent(app.show);
-            meetingslist = getmeetings();
-            showMeetings("all");
+            getmeetings(showMeetings, 'all');
         }
     },
     poppin: function (ev) {
@@ -71,22 +70,25 @@ function register() {
 }
 
 let meetingdata = {
-    day: "",
-    hour: "",
+    date: "",
+    time: "",
     location: "",
     data: ","
 }
-let meetingslist = [];
 
 // a function that gets all meetings of specific user
-function getmeetings() {
-    let usermeetings = [];
+function getmeetings(dispatcher, filter) {
     const fxhr = new FXHR();
     fxhr.open("GET", "/meetings", true);
-    fxhr.send({}, (allmeetings) => {
-        usermeetings = allmeetings.body;
+    fxhr.send({}, (response) => {
+        if (response.status === 200) {
+            let usermeetings = response.body;
+            dispatcher(usermeetings, filter);
+        }
+        else {
+            alert(response.body);
+        }
     });
-    return usermeetings;
 }
 
 // add meeting
@@ -109,9 +111,7 @@ function add() {
     const obj = meetingdata;
     fxhr.open('POST', '/meeting', true);
     const res = fxhr.send({ object: obj });
-    //alert(res.body);
-    meetingslist = getmeetings();
-    showMeetings("all");
+    getmeetings(showMeetings, 'all');
 }
 
 const select = document.getElementById('date');
@@ -140,6 +140,18 @@ function delete_meeting(id) {
 
 }
 
+function edit_meeting(meeting) {
+    meetingdata.date = document.getElementById("date").value;
+    meetingdata.time = document.getElementById("time").value;
+    meetingdata.location = document.getElementById("place").value;
+    meetingdata.data = document.getElementById("discription").value;
+    const fxhr = new FXHR();
+    const obj = meetingdata;
+    fxhr.open('PUT', '/meeting', true);
+    const res = fxhr.send({ object: meetingdata }, treatPutMeeting(response));
+    showMeetings("all");
+}
+
 function show_update_card(meeting) {
     const btn = document.getElementById('n_u_meeting');
     btn.removeEventListener('click', add);
@@ -154,17 +166,21 @@ function m_buttons(meeting) {
 
     // Create the "Edit" <li> element
     const editLi = document.createElement('li');
-    editLi.innerHTML = '<i class="uil uil-pen"></i>Edit';
-    editLi.addEventListener('click', () => {
+    const editBtn = document.createElement('button');
+    editBtn.innerHTML = '<i class="uil uil-pen"></i>Edit';
+    editBtn.addEventListener('click', () => {
         show_update_card(meeting);
     });
+    editLi.appendChild(editBtn);
 
     // Create the "Delete" <li> element
     const deleteLi = document.createElement('li');
-    deleteLi.innerHTML = '<i class="uil uil-trash"></i>Delete';
-    deleteLi.addEventListener('click', () => {
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = '<i class="uil uil-trash"></i>Delete';
+    deleteBtn.addEventListener('click', () => {
         delete_meeting(meeting.id);
     });
+    deleteLi.appendChild(deleteBtn);
 
     // Append the <li> elements to the <ul> element
     ul.appendChild(editLi);
@@ -176,10 +192,13 @@ function meetingGuiItem(meeting) {
     const li = document.createElement('li');
     li.classList.add('meeting');
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.classList.add('radio');
-    checkbox.id = 'mark';
+    // const checkbox = document.createElement('input');
+    // checkbox.type = 'checkbox';
+    // checkbox.classList.add('radio');
+    // checkbox.id = 'mark';
+
+    const dateItem = document.createElement('li');
+    dateItem.textContent = `Day: ${meeting.date}`;
 
     const timeItem = document.createElement('li');
     timeItem.textContent = `Time: ${meeting.time}`;
@@ -192,7 +211,7 @@ function meetingGuiItem(meeting) {
 
     const ul = m_buttons(meeting);
 
-    li.appendChild(checkbox);
+    // li.appendChild(checkbox);
     li.appendChild(timeItem);
     li.appendChild(locationItem);
     li.appendChild(descriptionItem);
@@ -201,9 +220,9 @@ function meetingGuiItem(meeting) {
     return li;
 }
 //shows all posted meeting
-function showMeetings(filter) {
+function showMeetings(meetingslist, filter) {
     let li = "",
-        sun = "",
+        sun = [],
         mon = "",
         tue = "",
         wed = "",
@@ -214,15 +233,9 @@ function showMeetings(filter) {
         meetingslist.forEach((meeting) => {
             if (filter == meeting.status || filter == "all") {
                 li = meetingGuiItem(meeting);
-                //             `<li class="meeting">
-                //       <input type="checkbox" class="radio" id="mark">
-                //       <li>time: ${meeting.time}</li>
-                //       <li>location:${meeting.place}</li>
-                //        <li>discription:${meeting.data}</li>
-                //   </li>`
             }
             if (meeting.date === 'sun') {
-                sun += li;
+                sun.push(li);
             }
             else if (meeting.date === 'mon') {
                 mon += li;
@@ -243,7 +256,8 @@ function showMeetings(filter) {
             }
         });
     }
-    document.getElementById("sun").innerHTML = sun;
+    let sunDiv = document.getElementById("sun");
+    sun.forEach(item => sunDiv.appendChild(item));
     document.getElementById("mon").innerHTML = mon;
     document.getElementById("tue").innerHTML = tue;
     document.getElementById("wed").innerHTML = wed;

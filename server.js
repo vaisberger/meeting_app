@@ -90,7 +90,7 @@ class FServer {
                 if (this.#loggedUser === object.name)
                     res = this.#db.UpdateUser(object);
                 break;
-            case '/meetings':
+            case '/meeting':
                 res = this.#db.UpdateMeeting(this.#loggedUser, object);
                 break;
             default:

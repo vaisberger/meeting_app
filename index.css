@@ -105,10 +105,18 @@ h1{
     text-align: center;
 }
 
+
 .grid {
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(7, 200px);
+}
+.task-menu {
+    z-index: 10;
+    padding: 5px 0;
+    background: #781e1e;
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.15);
 }
 
 /* login page*/
