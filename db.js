@@ -105,6 +105,7 @@ class DB {
 
         if (index !== -1) {
             u_meetings[index] = meeting;
+            meetings[name] = u_meetings;
             localStorage.setItem('meetings', JSON.stringify(meetings));
             return meeting;
         }

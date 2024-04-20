@@ -42,7 +42,7 @@ html {
     width: 200px;
     padding-bottom: 100px;
 }
-#newmeeting{
+#newmeeting #updateMeeting{
     background-color: lightblue;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -95,7 +95,7 @@ h1{
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     height: 100px;
 }
 
