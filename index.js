@@ -139,7 +139,9 @@ function selectChange() {
 }
 //deletes a spcific meeting
 function delete_meeting(id) {
-
+    let fxhr = new FXHR();
+    fxhr.open('DELETE', '/meeting',true);
+    const res = fxhr.send();
 }
 
 function edit_meeting(meeting) {
