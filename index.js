@@ -13,6 +13,7 @@ const app = {
         })
         history.replaceState({}, 'Home', '#home');
         window.addEventListener('popstate', app.poppin);
+        getmeetings(showMeetings, 'all');
     },
     nav: function (ev) {
         ev.preventDefault();
@@ -34,6 +35,7 @@ const app = {
         console.log(hash)
         //history.pushState({}, currentPage, `#${currentPage}`);
         document.getElementById(hash).dispatchEvent(app.show);
+        getmeetings(showMeetings, 'all');
     }
 }
 document.addEventListener('DOMContentLoaded', app.init);
