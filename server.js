@@ -107,6 +107,10 @@ class FServer {
         let res = null;
 
         switch (basePath) {
+            case '/logout':
+                this.#loggedUser = null;
+                localStorage.removeItem('loggedUser');
+                return { status: 204 };
             case '/user':
                 res = this.#db.DelUser(this.#loggedUser);
                 if (res)
