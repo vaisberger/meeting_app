@@ -170,7 +170,7 @@ function edit_meeting(meeting) {
         }
     });
 
-    exit('updateMeeting');
+    exit('updatemeeting');
 }
 
 function menue_buttons(meeting) {
@@ -182,7 +182,7 @@ function menue_buttons(meeting) {
     const editBtn = document.createElement('button');;
     editBtn.innerHTML = '<i class="uil uil-pen"></i>Edit';
     editBtn.addEventListener('click', () => {
-        drawMInput('updateMeeting');
+        drawMInput('updatemeeting');
 
         let old_element = document.getElementById('updateBtn');
         let new_element = old_element.cloneNode(true);
