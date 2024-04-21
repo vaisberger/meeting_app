@@ -87,7 +87,7 @@ class DB {
     DelMeeting(name, id) {
         const meetings = JSON.parse(localStorage.getItem('meetings'));
         const u_meetings = meetings[name];
-        const index = u_meetings.findIndex(m => m.id == id) || -1;
+        const index = u_meetings.findIndex(m => m.id == id);
 
         if (index !== -1) {
             u_meetings.splice(index, 1);

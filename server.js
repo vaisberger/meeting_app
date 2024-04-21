@@ -124,7 +124,7 @@ class FServer {
 
         if (res)
             return { status: 204 };
-        return { status: 404, body: `${object} Not Found` };
+        return { status: 404, body: `${query} Not Found` };
     }
 
     /*----------------help functions-----------------*/
