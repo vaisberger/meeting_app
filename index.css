@@ -178,7 +178,7 @@ input[type="password"] {
 }
 
 /* Button styles */
-.sty{
+.sty,#btn{
     padding: 12px;
     background-color: #5185be;
     color: #fff;
