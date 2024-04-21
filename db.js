@@ -65,7 +65,8 @@ class DB {
 
     #getMIndex(){
         let index = Number(JSON.parse(localStorage.getItem('m_index')));
-        localStorage.setItem('m_index', JSON.stringify(index++));
+        index++;
+        localStorage.setItem('m_index', JSON.stringify(index));
         return index;
     }
 

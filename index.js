@@ -195,8 +195,9 @@ function menue_buttons(meeting) {
     const deleteLi = document.createElement('li');
     const deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = '<i class="uil uil-trash"></i>Delete';
-    deleteBtn.addEventListener('click', () => {
-        delete_meeting(meeting.id);
+    deleteBtn.addEventListener('click', (event) => {
+        delete_meeting(meeting.id); // Pass the meeting ID to the delete function
+        event.stopPropagation(); // Prevent the click event from propagating to parent elements
     });
     deleteLi.appendChild(deleteBtn);
 
