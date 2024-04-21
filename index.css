@@ -42,7 +42,7 @@ html {
     width: 200px;
     padding-bottom: 100px;
 }
-#newmeeting #updateMeeting{
+#newmeeting{
     background-color: lightblue;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -95,7 +95,7 @@ h1{
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto;
     height: 100px;
 }
 
@@ -178,7 +178,7 @@ input[type="password"] {
 }
 
 /* Button styles */
-.sty {
+.sty{
     padding: 12px;
     background-color: #5185be;
     color: #fff;
@@ -188,14 +188,13 @@ input[type="password"] {
     font-size: 16px;
     transition: background-color 0.3s;
 }
+
 button{
-    background-color: #5185be; 
+    background-color: #5185be;
     color: #fff;
     border: none;
-    border-radius: 3px;
     transition: background-color 0.3s;
 }
-
 /* Link styles */
 a {
     color: #007bff;

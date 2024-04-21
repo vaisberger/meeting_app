@@ -100,8 +100,8 @@ function drawMInput(id) {
     document.getElementById(id).style.visibility = "visible";
 }
 //button to exit the adding form
-function exit(id) {
-    document.getElementById(id).style.visibility = "hidden";
+function exit() {
+    document.getElementById("newmeeting").style.visibility = "hidden";
 }
 // adding a meeting
 function add() {
@@ -162,7 +162,7 @@ function edit_meeting(meeting) {
         }
     });
 
-    exit('updateMeeting');
+    exit();
 }
 
 function menue_buttons(meeting) {

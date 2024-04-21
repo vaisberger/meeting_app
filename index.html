@@ -21,11 +21,11 @@
             </div>
             <div class="grid-container">
                 <div class="grid-item"> <input type="text" placeholder="Search.."></div>
-                <div class="grid-item"><button type="button" onclick="register()">delete meeting</button></div>
-                <div class="grid-item"><button type="button" onclick="drawMInput('newmeeting')">Add meeting</button></div>
+                <div class="grid-item"><button type="button" class="sty" onclick="register()">delete meeting</button></div>
+                <div class="grid-item"><button type="button" class="sty" onclick="drawMInput('newmeeting')">Add meeting</button></div>
                 <div class="grid-item">
                     <form id="newmeeting">
-                        <span class="exit" onclick="exit('newmeeting')"></span>
+                        <span class="exit" onclick="exit()"></span>
                         <div class="input-group">
                             <label for="date">Date:</label>
                             <select id="date" required>
@@ -51,42 +51,11 @@
                             <input type="text" id="discription" maxlength="15">
                         </div>
                         <div class="grid-item" >
-                            <button type="button" onclick="add()">Add</button>
+                            <button id="n_u_meeting" type="button" class="sty" onclick="add()">Add</button>
                         </div>
                     </form>
                 </div>
-                <div class="grid-item">
-                    <form id="updateMeeting">
-                        <span class="exit" onclick="exit('updateMeeting')"></span>
-                        <div class="input-group">
-                            <label for="up_date">Date:</label>
-                            <select id="up_date" required>
-                                <option value="sun">Sun</option>
-                                <option value="mon">Mon</option>
-                                <option value="tue">Tue</option>
-                                <option value="wed">Wed</option>
-                                <option value="thu">Thu</option>
-                                <option value="fri">Fri</option>
-                                <option value="sat">Sat</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="up_time">time:</label>
-                            <input type="text" id="up_time" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="up_place">place:</label>
-                            <input type="text" id="up_place" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="up_discription">discription:</label>
-                            <input type="text" id="up_discription" maxlength="15">
-                        </div>
-                        <div class="grid-item" >
-                            <button id="updateBtn" type="button">Update</button>
-                        </div>
-                    </form>
-                </div>           
+                         
             </div>
             <div class="grid">
                 <div class="day" data-name="">
