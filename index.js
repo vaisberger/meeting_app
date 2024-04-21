@@ -49,7 +49,6 @@ function login() {
 
     fxhr.open("POST", "/login");
     let res = fxhr.send({ object: { name: username, password: password } });
-    alert(res.body);
     if (res.status == 200) {
         return true;
     }
@@ -64,7 +63,6 @@ function register() {
     const email = document.getElementById("email").value;
     fxhr.open("POST", "/register");
     let res = fxhr.send({ object: { name: username, password: password, mail: email } });
-    alert(res.body);
     if (res.status == 201) {
         return true;
     }
@@ -141,8 +139,14 @@ function selectChange() {
 //deletes a spcific meeting
 function delete_meeting(id) {
     let fxhr = new FXHR();
-    fxhr.open('DELETE', '/meeting',true);
-    const res = fxhr.send();
+    fxhr.open('DELETE', `/meeting?id=${id}`, true);
+    const res = fxhr.send({}, response => {
+        if (response.status === 204)
+            getmeetings(showMeetings, 'all');
+        else {
+            alert(response.body);
+        }
+    });
 }
 
 function edit_meeting(meeting) {
@@ -162,7 +166,7 @@ function edit_meeting(meeting) {
         }
     });
 
-    exit();
+    exit('updateMeeting');
 }
 
 function menue_buttons(meeting) {
@@ -236,7 +240,7 @@ function showMeetings(meetingslist, filter) {
     let li = "",
         sun = [],
         mon = [],
-        tue =[],
+        tue = [],
         wed = [],
         thu = [],
         fri = [],
