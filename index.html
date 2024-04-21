@@ -21,7 +21,6 @@
             </div>
             <div class="grid-container">
                 <div class="grid-item"> <input type="text" placeholder="Search.."></div>
-                <div class="grid-item"><button type="button" class="sty" onclick="register()">delete meeting</button></div>
                 <div class="grid-item"><button type="button" class="sty" onclick="drawMInput('newmeeting')">Add meeting</button></div>
                 <div class="grid-item">
                     <form id="newmeeting">
@@ -55,7 +54,38 @@
                         </div>
                     </form>
                 </div>
-                         
+                    <div class="grid-item">
+                        <form id="updatemeeting">
+                            <span class="exit" onclick="exitUpdate()"></span>
+                            <div class="input-group">
+                                <label for="date">Date:</label>
+                                <select id="date" required>
+                                    <option value="sun">Sun</option>
+                                    <option value="mon">Mon</option>
+                                    <option value="tue">Tue</option>
+                                    <option value="wed">Wed</option>
+                                    <option value="thu">Thu</option>
+                                    <option value="fri">Fri</option>
+                                    <option value="sat">Sat</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="time">time:</label>
+                                <input type="text" id="time" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="place">place:</label>
+                                <input type="text" id="place" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="discription">discription:</label>
+                                <input type="text" id="discription" maxlength="15">
+                            </div>
+                            <div class="grid-item" >
+                                <button id="n_u_meeting" type="button" class="sty" onclick="add()">Add</button>
+                            </div>
+                        </form>
+                    </div>    
             </div>
             <div class="grid">
                 <div class="day" data-name="">
