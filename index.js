@@ -170,7 +170,7 @@ function edit_meeting(meeting) {
         }
     });
 
-    exit('updatemeeting');
+    exitUpdate();
 }
 
 function menue_buttons(meeting) {
@@ -182,6 +182,10 @@ function menue_buttons(meeting) {
     const editBtn = document.createElement('button');;
     editBtn.innerHTML = '<i class="uil uil-pen"></i>Edit';
     editBtn.addEventListener('click', () => {
+        document.getElementById("up_date").value = meeting.date;
+    document.getElementById("up_time").value = meeting.time;
+     document.getElementById("up_place").value = meeting.location;
+     document.getElementById("up_discription").value = meeting.data;
         drawMInput('updatemeeting');
 
         let old_element = document.getElementById('updateBtn');
@@ -218,7 +222,7 @@ function meetingGuiItem(meeting) {
     timeItem.textContent = `Time: ${meeting.time}`;
 
     const locationItem = document.createElement('li');
-    locationItem.textContent = `Location: ${meeting.place}`;
+    locationItem.textContent = `Location: ${meeting.location}`;
 
     const descriptionItem = document.createElement('li');
     descriptionItem.textContent = `Description: ${meeting.data}`;
