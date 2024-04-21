@@ -99,10 +99,10 @@ function drawMInput(id) {
 }
 //button to exit the adding form
 function exit() {
-    document.getElementById("updatemeeting").style.visibility = "hidden";
+    document.getElementById("newmeeting").style.visibility = "hidden";
 }
 function exitUpdate() {
-    document.getElementById("newmeeting").style.visibility = "hidden";
+    document.getElementById("updatemeeting").style.visibility = "hidden";
 }
 
 // adding a meeting
